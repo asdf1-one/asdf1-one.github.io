@@ -2,15 +2,16 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>オーバーエンチャント(JE)</title>
+  <title>オーバーエンチャント(JE26.1.2)</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>オーバーエンチャントツール</h1>
-  <p>id <input type="text" placeholder="id" id="id"></p>
-  <p>個数 <input type="number" placeholder="個数" id="count"></p>
+  <h1>オーバーエンチャントツール 26.1.2</h1>
+  <p>id <input type="text" placeholder="id" id="id" class="box"></p>
+  <p>個数 <input type="number" placeholder="個数" id="count" class="box"></p>
+  <p>名前 空欄にすると名前を変更しません <input type="text" placeholder="名前" id="name" class="box"></p>
   <p><button onclick="seisei()">生成</button></p>
-  <div id="result"></div>
+  <p id="result"></p>
   <script src="overench.js"></script>
 </body>
 </html>
