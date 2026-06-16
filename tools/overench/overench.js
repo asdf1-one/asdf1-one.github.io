@@ -1,0 +1,3 @@
+function seisei() {
+  alert("Wow!");
+}
