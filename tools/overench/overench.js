@@ -47,6 +47,10 @@ const enchants = [
 
 function seisei() {
   const id = document.getElementById("id").value;
+  if (id === "") {
+    document.getElementById("error").textContent = "idを入力してください";
+    return;
+  }
   const name = document.getElementById("name").value;
   let count;
   if (["1", ""].includes(document.getElementById("count").value)) {
@@ -67,7 +71,7 @@ function seisei() {
   components.push(`enchantments=${cmdenchjson}`);
   let cmdcomponents = "";
   if (components.length >= 1) {
-    cmdcomponents = `[${components.join(',')}]`;
+    cmdcomponents = `[${components.join(",")}]`;
   } else {
     cmdcomponents = "";
   }
@@ -75,5 +79,27 @@ function seisei() {
   
   result += `/give @p ${id}${cmdcomponents} ${count}`;
 
-  document.getElementById('result').textContent = result;
+  document.getElementById("result").textContent = result;
+  document.getElementById("error").textContent = "";
+}
+
+function copyresult() {
+  const result = document.getElementById("result").textContent;
+  if (result === "") {
+    document.getElementById("error").textContent = "コピーできません";
+    return;
+  }
+  navigator.clipboard.writeText(result).then(() => {
+    document.getElementById("error").textContent = "出力をコピーしました";
+  }).catch((err) => {
+    document.getElementById("error").textContent = "コピーに失敗しました: " + err;
+  });
+}
+
+function copycmdblock() {
+  navigator.clipboard.writeText("/give @p command_block").then(() => {
+    document.getElementById("error").textContent = "コマンドをコピーしました";
+  }).catch((err) => {
+    document.getElementById("error").textContent = "コピーに失敗しました: " + err;
+  });
 }
