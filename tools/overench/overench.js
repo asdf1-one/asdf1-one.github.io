@@ -47,40 +47,72 @@ const enchants = [
 
 function seisei() {
   const id = document.getElementById("id").value;
+  
+  // id入力しろ
   if (id === "") {
     document.getElementById("error").textContent = "idを入力してください";
     return;
   }
+  const count = document.getElementById("count").value;
+
+  // 個数が小さすぎるわボケ
+  if (count !== "") {
+    if (parseInt(count) < 1) {
+      document.getElementById("error").textContent = "個数は1以上にしてください";
+      return;
+    }
+  }
+
+  // e
+  if (count.includes("e") || count.includes("E")) {
+    document.getElementById("error").textContent = "個数が変です eは使用できません";
+    return;
+  }
+
+  // 小数
+  if (count.includes(".")) {
+    document.getElementById("error").textContent = "個数は整数で入力してください";
+    return;
+  }
+
   const name = document.getElementById("name").value;
-  let count;
-  if (["1", ""].includes(document.getElementById("count").value)) {
-    count = "";
+  let cmdcount;
+  // 個数1省略
+  if (["1", ""].includes(count)) {
+    cmdcount = "";
   } else {
-    count = parseInt(document.getElementById("count").value);
+    cmdcount = parseInt(count);
   }
 
   let components = [];
+  // 名前追加
   if (name !== "") components.push(`item_name="${name}"`);
 
+  // エンチャント追加
   let cmdenchjson = "{";
   for (let i = 0; i < enchants.length; i++) {
     cmdenchjson += `${enchants[i]}:255`;
     if (i < enchants.length - 1) cmdenchjson += ",";
   }
   cmdenchjson += "}";
+
   components.push(`enchantments=${cmdenchjson}`);
+
+  // コンポーネントをコマンド用に変換
   let cmdcomponents = "";
   if (components.length >= 1) {
     cmdcomponents = `[${components.join(",")}]`;
   } else {
     cmdcomponents = "";
   }
-  let result = "";
   
-  result += `/give @p ${id}${cmdcomponents} ${count}`;
+  // 合成して生成
+  const result = `/give @p ${id}${cmdcomponents} ${cmdcount}`;
 
+  // 更新
   document.getElementById("result").textContent = result;
-  document.getElementById("error").textContent = "";
+  document.getElementById("error").textContent = "生成しました";
+  document.getElementById("counter").textContent = `${result.length}文字`;
 }
 
 function copyresult() {
@@ -103,3 +135,10 @@ function copycmdblock() {
     document.getElementById("error").textContent = "コピーに失敗しました: " + err;
   });
 }
+
+document.getElementById("count").addEventListener("input", e => {
+  let v = Number(e.target.value);
+
+  if (v < 1) e.target.value = 1;
+  if (v > 9999) e.target.value = 9999;
+});
