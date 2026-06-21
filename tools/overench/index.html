@@ -14,7 +14,7 @@
     <button onclick="copycmdblock()">コマンドブロックを入手するコマンドをコピー</button>
   </p>
   <p>id <input type="text" placeholder="id" id="id" class="box"></p>
-  <p>個数 空欄にすると個数は1になります <input type="number" placeholder="個数" id="count" class="box"></p>
+  <p>個数 空欄にすると個数は1になります <input type="number" placeholder="個数" id="count" class="box" min="1" max="9999"></p>
   <p>名前 空欄にすると名前を変更しません <input type="text" placeholder="名前" id="name" class="box"></p>
   <p>
     <button onclick="seisei()">生成</button>
@@ -22,6 +22,8 @@
     <button onclick="copyresult()">コピー</button>
     <span class="air"></span>
     <span id="error"></span>
+    <span class="air"></span>
+    <span id="counter"></span>
   </p>
   <p id="result"></p>
   <script src="overench.js"></script>
